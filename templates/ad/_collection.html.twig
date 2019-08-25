@@ -1,0 +1,42 @@
+{# affichage personnalisé de la collection images #}
+{% block _commande_images_widget %}
+    <p>Ici, vous pouvez ajouter vos propres images !</p>
+
+    {{ form_widget(form) }}
+
+    {# on ne met pas de name dans l input, il ne sera donc pas envoyé au serveur #}
+    <input type="hidden" id="widgets-counter" value="0">
+
+    <div class="form-group">
+        <button id="add-image" type="button" class="btn btn-primary">Ajouter une image</button>
+    </div>
+{% endblock %}
+
+{# retirer le label, on redéfini la row en lui demandant uniquement le widget, les autres seront enlevés #}
+{% block _commande_images_entry_row %} {# la row dispose du label, du widget, des erreurs et des aides #}
+    {{ form_widget(form) }}
+{% endblock %}
+
+{# affichage personnalisé sur les entrées de la collection images #}
+{% block _commande_images_entry_widget %}
+    <div class="form-group" id="block_{{ id }}">
+        <div class="row">
+            <div class="col-10">
+                <div class="row">
+                    <div class="col">
+                        {{ form_widget(form.url) }}
+                        {{ form_errors(form.url) }}
+                    </div>
+                    <div class="col">
+                        {{ form_widget(form.caption) }}
+                        {{ form_errors(form.caption) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <button type="button" data-action="delete" data-target="#block_{{ id }}" class="btn btn-danger">X</button>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

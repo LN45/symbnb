@@ -1,0 +1,24 @@
+{%  extends 'base.html.twig' %}
+
+{%  block title %}Modification d'une annonce{% endblock %}
+
+{# Permet d'aller chercher le template personnalisé Twig de formulaire _commande_images_widget #}
+{% form_theme form 'ad/_collection.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1>Modifier l'annonce {{ ad.title }}</h1>
+
+        {{ form_start(form) }}
+
+        {{ form_widget(form) }}
+
+        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('formImages') }}
+{% endblock %}
