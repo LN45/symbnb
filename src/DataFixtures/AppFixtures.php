@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Ad;
+use App\Entity\Booking;
 use App\Entity\Image;
 use App\Entity\Role;
 use App\Entity\User;
@@ -95,6 +96,31 @@ class AppFixtures extends Fixture
                     ->setCaption($faker->sentence())
                     ->setAd($ad);
                 $manager->persist($image);
+            }
+
+            // gestion des réservations
+            for($j = 1; $j <= mt_rand(0,10); $j++) {
+                $booking = new Booking();
+
+                $createdAd = $faker->dateTimeBetween('-6 months');
+                $startDate = $faker->dateTimeBetween('-3 months');
+                //gestion de la date de fin
+                $duration = mt_rand(3,10);
+                $endDate = (clone $startDate)->modify("+$duration days"); // clone le startdate car sinon ça modifirait la date de début et de fin
+
+                $amount = $ad->getPrice() * $duration;
+                $booker = $users[mt_rand(0, count($users)-1)];  //prend un utilisateur au hasard dans mon tableau des utilisateurs
+                $comment = $faker->paragraph();
+
+                $booking->setBooker($booker)
+                    ->setAd($ad)
+                    ->setStartDate($startDate)
+                    ->setEndDate($endDate)
+                    ->setCReatedAt($createdAd)
+                    ->setAmount($amount)
+                    ->setComment($comment);
+
+                $manager->persist($booking);
             }
 
             $manager->persist($ad);

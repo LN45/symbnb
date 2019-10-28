@@ -42,3 +42,7 @@ div.card-body a {
   max-width: 24px;
   max-height: 24px;
 }
+
+.datepicker table tr td.disabled, .datepicker table tr td.disabled:hover {
+  color: firebrick !important;
+}
