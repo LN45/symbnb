@@ -2,8 +2,14 @@
 <div class="col-md-4">
     <div class="card bg-light mb-3">
         <div class="card-header text-center">
-            {{ ad.rooms }} chambres, <strong>{{  ad.price  }}&euro; / nuit</strong> <br>
-            <small>Pas encore noté</small>
+            {{ ad.rooms }} chambres, <strong>{{  ad.price | number_format(2, ',', ' ')}}&euro; / nuit</strong> <br>
+
+            {% if ad.comments|length > 0 %}
+                {% include 'partials/rating.html.twig' with {'rating' : ad.avgRatings} %}
+            {% else %}
+                <small>Pas encore noté</small>
+            {% endif %}
+
         </div>
         <a href="{{ url }}">
             <img src="{{ ad.coverImage }}" alt="Image de l'appartement"
@@ -16,7 +22,7 @@
             <p class="card-text">
                 {{ ad.introduction }}
             </p>
-            <a href="{{ url }}" class="btn btn-secondary">en savoir plus !</a>
+            <a href="{{ url }}" class="btn btn-primary float-right">en savoir plus !</a>
             {% if app.user and app.user == ad.author%}
                 <a href="{{ path('ads_edit', {'slug': ad.slug}) }}" class="btn btn-secondary">Modifier l'annonce</a>
                 <a href="{{ path('ads_delete', {'slug': ad.slug}) }}" class="btn btn-danger" onclick="return confirm(`Etes vous sur de vouloir supprimer l'annonce : {{ ad.title }} ?`)">Supprimer l'annonce</a>
