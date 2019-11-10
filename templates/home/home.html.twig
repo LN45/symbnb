@@ -16,93 +16,28 @@
         </div>
         <h2 class="h1 my-5">Nos appartements stars</h2>
         <div class="row mt-5">
-            <div class="col-md-4">
-                <div class="card bg-light mb-3">
-                    <div class="card-header text-center">
-                        3 chambres, <strong>49&euro; / nuit</strong> <br>
-                        <small>Pas encore noté</small>
-                    </div>
-                    <img src="http://placehold.it/1000x400" alt="Image de l'appartement"
-                    style="height:200px; width: 100%; display: block">
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            Appartement de ouf !
-                        </h4>
-                        <p class="card-text">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur cum distinctio perferendis qui quidem. Alias aliquam expedita nam placeat sunt.
-                        </p>
-                        <a href="#" class="btn btn-secondary">en savoir plus !</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card bg-light mb-3">
-                    <div class="card-header text-center">
-                        3 chambres, <strong>49&euro; / nuit</strong> <br>
-                        <small>Pas encore noté</small>
-                    </div>
-                    <img src="http://placehold.it/1000x400" alt="Image de l'appartement"
-                         style="height:200px; width: 100%; display: block">
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            Appartement de ouf !
-                        </h4>
-                        <p class="card-text">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur cum distinctio perferendis qui quidem. Alias aliquam expedita nam placeat sunt.
-                        </p>
-                        <a href="#" class="btn btn-secondary">en savoir plus !</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card bg-light mb-3">
-                    <div class="card-header text-center">
-                        3 chambres, <strong>49&euro; / nuit</strong> <br>
-                        <small>Pas encore noté</small>
-                    </div>
-                    <img src="http://placehold.it/1000x400" alt="Image de l'appartement"
-                         style="height:200px; width: 100%; display: block">
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            Appartement de ouf !
-                        </h4>
-                        <p class="card-text">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur cum distinctio perferendis qui quidem. Alias aliquam expedita nam placeat sunt.
-                        </p>
-                        <a href="#" class="btn btn-secondary">en savoir plus !</a>
-                    </div>
-                </div>
-            </div>
+            {% for data in ads %}
+                {% include 'ad/_ad.html.twig' with { 'ad': data.annonce } %}
+            {% endfor %}
         </div>
 
         <h2 class="h1 my-5">Nos propriétaires stars</h2>
         <div class="row">
+            {% for data in users %}
             <div class="col">
                 <div class="card border-secondary mb-3">
                     <div class="card-body">
-                        <h4 class="card-title">Hélène Bloch</h4>
+                        <h4 class="card-title">{{data.user.fullName}}</h4>
                         <hr>
                         <div class="card-text">
-                            <img src="http://placehold.it/64x64" alt="avatar helene" class="float-left mr-3">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem, tempora!</p>
-                            <a href="#" class="btn btn-success float-right">En savoir plus !</a>
+                            <img src="{{data.user.picture}}" alt="avatar {{data.user.fullName}}" class="float-left mr-3">
+                            <p>{{data.user.introduction}}</p>
+                            <a href="{{ path('user_show', {'slug' : data.user.slug}) }}" class="btn btn-success float-right">En savoir plus !</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card border-secondary mb-3">
-                    <div class="card-body">
-                        <h4 class="card-title">Hélène Bloch</h4>
-                        <hr>
-                        <div class="card-text">
-                            <img src="http://placehold.it/64x64" alt="avatar helene" class="float-left mr-3">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem, tempora!</p>
-                            <a href="#" class="btn btn-success float-right">En savoir plus !</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
